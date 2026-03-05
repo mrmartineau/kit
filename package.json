@@ -1,0 +1,40 @@
+{
+  "name": "@mrmartineau/kit",
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./biome": "./src/biome/biome.json",
+    "./components": "./src/components/index.ts",
+    "./eslint": "./src/eslint/index.ts",
+    "./hooks": "./src/hooks/index.ts",
+    "./oxfmt": "./src/oxfmt/.oxfmtrc.json",
+    "./oxlint": "./src/oxlint/.oxlintrc.json",
+    "./prettier": "./src/prettier/.prettierrc.json",
+    "./sounds": "./src/sounds/index.ts",
+    "./sounds/*": "./src/sounds/*",
+    "./utils": "./src/utils/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/eslint": "^9.6.1"
+  },
+  "peerDependencies": {
+    "eslint": "",
+    "typescript": "^5"
+  },
+  "peerDependenciesMeta": {
+    "eslint": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "release-it": "^19.2.4"
+  },
+  "scripts": {
+    "release": "release-it"
+  }
+}
