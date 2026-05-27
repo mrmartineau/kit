@@ -16,12 +16,12 @@ export const formatNumberAccounting = (
   options?: Intl.NumberFormatOptions,
 ) => {
   return formatNumberBase(value, {
+    minimumFractionDigits: decimalCount,
+    maximumFractionDigits: decimalCount,
+    ...options,
     style: "currency",
     currency,
     currencyDisplay: "narrowSymbol",
     currencySign: "accounting",
-    minimumFractionDigits: decimalCount,
-    maximumFractionDigits: decimalCount,
-    ...options,
   });
 };

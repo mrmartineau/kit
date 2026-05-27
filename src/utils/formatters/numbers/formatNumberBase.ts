@@ -10,7 +10,8 @@ export const formatNumberBase = (
   }
 
   if (typeof value === "string") {
-    value = parseFloat(value);
+    const trimmed = value.trim();
+    value = trimmed === "" ? NaN : Number(trimmed);
     if (isNaN(value)) {
       throw new Error("formatNumber: Invalid number format");
     }

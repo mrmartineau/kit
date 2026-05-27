@@ -16,8 +16,8 @@ export const formatNumberOrdinal = (
   value: number,
   locale: string = "en-GB",
 ) => {
-  if (!Number.isFinite(value)) {
-    throw new Error("formatNumberOrdinal: Invalid number");
+  if (!Number.isInteger(value)) {
+    throw new Error("formatNumberOrdinal: Value must be an integer");
   }
   const rules = new Intl.PluralRules(locale, { type: "ordinal" });
   const suffix = ORDINAL_SUFFIXES[rules.select(value)];

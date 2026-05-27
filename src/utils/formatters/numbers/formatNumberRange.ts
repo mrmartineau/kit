@@ -15,5 +15,8 @@ export const formatNumberRange = (
   if (!Number.isFinite(min) || !Number.isFinite(max)) {
     throw new Error("formatNumberRange: Invalid range");
   }
+  if (min > max) {
+    throw new RangeError("formatNumberRange: min must be <= max");
+  }
   return new Intl.NumberFormat(locale, options).formatRange(min, max);
 };

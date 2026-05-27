@@ -2,7 +2,8 @@ import { DEFAULT_DECIMAL_PLACES } from "../constants.js";
 import { formatNumberBase } from "./formatNumberBase.js";
 
 /**
- * Formats a number while always displaying the sign (e.g. `5` → `+5`).
+ * Formats a number with an explicit sign for non-zero values (e.g. `5` → `+5`,
+ * `-5` → `-5`, `0` → `0`). Pass `signDisplay: "always"` to also sign zero.
  * @param value - The number to format.
  * @param decimalCount - Maximum decimal places. Default 2.
  * @param signDisplay - `Intl.NumberFormatOptions['signDisplay']`. Default `"exceptZero"`.

@@ -201,7 +201,7 @@ import {
 | `formatNumberBase`                      | `(value, options?)`                                                                                | `formatNumberBase(1234)` → `"1,234"`                     |
 | `formatNumberDecimal`                   | `(value, decimalCount = 2, options?)`                                                              | `formatNumberDecimal(1234.567, 2)` → `"1,234.57"`        |
 | `formatNumberDecimalForceDecimalPlaces` | `(value, decimalCount = 2, options?)`                                                              | `formatNumberDecimalForceDecimalPlaces(10, 2)` → `"10.00"` |
-| `formatNumberCurrency`                  | `(value, currency, decimalCount = 2, options?)`                                                    | `formatNumberCurrency(1234, "GBP")` → `"£1,234"`         |
+| `formatNumberCurrency`                  | `(value, currency, decimalCount = 2, options?)`                                                    | `formatNumberCurrency(1234, "GBP")` → `"£1,234.00"`      |
 | `formatNumberAccounting`                | `(value, currency, decimalCount = 2, options?)` — negatives wrapped in parens                      | `formatNumberAccounting(-100, "USD")` → `"($100.00)"`    |
 | `formatNumberPercent`                   | `(value, decimalCount = 2, options?)` — value already in decimal form (`0.42` → `42%`)             | `formatNumberPercent(0.421)` → `"42.1%"`                 |
 | `formatNumberCompact`                   | `(value, display = "short", options?)`                                                             | `formatNumberCompact(1200)` → `"1.2K"`                   |

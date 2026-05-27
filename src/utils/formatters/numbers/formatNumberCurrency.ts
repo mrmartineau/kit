@@ -16,10 +16,10 @@ export const formatNumberCurrency = (
   options?: Intl.NumberFormatOptions,
 ) => {
   return formatNumberBase(value, {
-    style: "currency",
-    currencyDisplay: "narrowSymbol",
-    currency: currency,
     maximumFractionDigits: decimalCount,
     ...options,
+    style: "currency",
+    currencyDisplay: "narrowSymbol",
+    currency,
   });
 };

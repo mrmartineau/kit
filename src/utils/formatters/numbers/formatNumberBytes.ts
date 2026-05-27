@@ -22,10 +22,8 @@ export const formatNumberBytes = (
 
   const base = binary ? 1024 : 1000;
   const units = binary ? BINARY_UNITS : DECIMAL_UNITS;
-  const exponent = Math.min(
-    Math.floor(Math.log(Math.abs(bytes)) / Math.log(base)),
-    units.length - 1,
-  );
+  const rawExponent = Math.floor(Math.log(Math.abs(bytes)) / Math.log(base));
+  const exponent = Math.min(Math.max(rawExponent, 0), units.length - 1);
   const value = bytes / Math.pow(base, exponent);
   return `${formatNumberDecimal(value, decimalCount)} ${units[exponent]}`;
 };
