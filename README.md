@@ -85,7 +85,7 @@ In your project's `biome.json`:
 ```json
 {
   "$schema": "https://biomejs.dev/schemas/2.1.3/schema.json",
-  "extends": ["@mrmartineau/kit/biome"]
+  "extends": ["./node_modules/@mrmartineau/kit/src/biome/biome.json"]
 }
 ```
 
@@ -159,6 +159,74 @@ import { ... } from "@mrmartineau/kit/utils";
 import { ... } from "@mrmartineau/kit/components";
 import { ... } from "@mrmartineau/kit/hooks";
 ```
+
+#### Formatters
+
+A collection of number and string formatters. All number formatters wrap
+`Intl.NumberFormat` and default to the `en-GB` locale.
+
+```ts
+import {
+  formatNumberAccounting,
+  formatNumberBase,
+  formatNumberBytes,
+  formatNumberCompact,
+  formatNumberCurrency,
+  formatNumberDecimal,
+  formatNumberDecimalForceDecimalPlaces,
+  formatNumberOrdinal,
+  formatNumberPercent,
+  formatNumberRange,
+  formatNumberSignDisplay,
+  formatInitials,
+  formatList,
+  maskString,
+  normalizeWhitespace,
+  pluralize,
+  slugify,
+  stripDiacritics,
+  toCamelCase,
+  toKebabCase,
+  toPascalCase,
+  toSnakeCase,
+  toStartCase,
+  truncate,
+} from '@mrmartineau/kit/utils'
+```
+
+##### Number formatters
+
+| Function                                | Signature                                                                                          | Example                                                  |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| `formatNumberBase`                      | `(value, options?)`                                                                                | `formatNumberBase(1234)` → `"1,234"`                     |
+| `formatNumberDecimal`                   | `(value, decimalCount = 2, options?)`                                                              | `formatNumberDecimal(1234.567, 2)` → `"1,234.57"`        |
+| `formatNumberDecimalForceDecimalPlaces` | `(value, decimalCount = 2, options?)`                                                              | `formatNumberDecimalForceDecimalPlaces(10, 2)` → `"10.00"` |
+| `formatNumberCurrency`                  | `(value, currency, decimalCount = 2, options?)`                                                    | `formatNumberCurrency(1234, "GBP")` → `"£1,234"`         |
+| `formatNumberAccounting`                | `(value, currency, decimalCount = 2, options?)` — negatives wrapped in parens                      | `formatNumberAccounting(-100, "USD")` → `"($100.00)"`    |
+| `formatNumberPercent`                   | `(value, decimalCount = 2, options?)` — value already in decimal form (`0.42` → `42%`)             | `formatNumberPercent(0.421)` → `"42.1%"`                 |
+| `formatNumberCompact`                   | `(value, display = "short", options?)`                                                             | `formatNumberCompact(1200)` → `"1.2K"`                   |
+| `formatNumberOrdinal`                   | `(value, locale = "en-GB")`                                                                        | `formatNumberOrdinal(3)` → `"3rd"`                       |
+| `formatNumberBytes`                     | `(bytes, binary = false, decimalCount = 2)`                                                        | `formatNumberBytes(1536, true)` → `"1.5 KiB"`            |
+| `formatNumberRange`                     | `(min, max, options?, locale = "en-GB")`                                                           | `formatNumberRange(1, 5)` → `"1–5"`                      |
+| `formatNumberSignDisplay`               | `(value, decimalCount = 2, signDisplay = "exceptZero", options?)`                                  | `formatNumberSignDisplay(5)` → `"+5"`                    |
+
+##### String formatters
+
+| Function              | Signature                                                                       | Example                                                |
+| --------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `formatList`          | `(array, options?)` — wraps `Intl.ListFormat`                                   | `formatList(["a","b","c"])` → `"a, b, and c"`          |
+| `toStartCase`         | `(str)`                                                                         | `toStartCase("hello_world")` → `"Hello World"`         |
+| `toCamelCase`         | `(str)`                                                                         | `toCamelCase("hello_world")` → `"helloWorld"`          |
+| `toPascalCase`        | `(str)`                                                                         | `toPascalCase("hello_world")` → `"HelloWorld"`         |
+| `toKebabCase`         | `(str)`                                                                         | `toKebabCase("helloWorld")` → `"hello-world"`          |
+| `toSnakeCase`         | `(str)`                                                                         | `toSnakeCase("helloWorld")` → `"hello_world"`          |
+| `truncate`            | `(str, maxLength, { ellipsis = "…", wordBoundary = false }?)`                   | `truncate("Hello world", 8)` → `"Hello w…"`            |
+| `slugify`             | `(str)`                                                                         | `slugify("Hello, World!")` → `"hello-world"`           |
+| `pluralize`           | `(count, singular, plural?)`                                                    | `pluralize(2, "child", "children")` → `"children"`     |
+| `stripDiacritics`     | `(str)`                                                                         | `stripDiacritics("café")` → `"cafe"`                   |
+| `normalizeWhitespace` | `(str)`                                                                         | `normalizeWhitespace("  a\n\tb  ")` → `"a b"`          |
+| `maskString`          | `(str, { visibleStart = 0, visibleEnd = 4, maskChar = "•" }?)`                  | `maskString("4242424242424242")` → `"••••••••••••4242"` |
+| `formatInitials`      | `(name, maxLength = 2)`                                                         | `formatInitials("John Smith")` → `"JS"`                |
 
 ## Exports map
 
