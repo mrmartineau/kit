@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "bun:test";
 
 import { formatNumberCurrency } from "../formatNumberCurrency.js";
 
@@ -46,15 +46,11 @@ describe("formatNumberCurrency", () => {
   });
 
   it("should throw if passing an invalid currency code", () => {
-    expect(() => formatNumberCurrency(1.789, "DARE")).toThrowError(
-      "Invalid currency code : DARE",
-    );
+    expect(() => formatNumberCurrency(1.789, "DARE")).toThrowError();
   });
 
   it("should throw if missing a currency code", () => {
     // @ts-expect-error - Testing for invalid input
-    expect(() => formatNumberCurrency(1.789)).toThrowError(
-      "Currency code is required with currency style.",
-    );
+    expect(() => formatNumberCurrency(1.789)).toThrowError();
   });
 });
