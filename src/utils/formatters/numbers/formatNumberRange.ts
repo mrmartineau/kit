@@ -10,13 +10,13 @@ export const formatNumberRange = (
   min: number,
   max: number,
   options?: Intl.NumberFormatOptions,
-  locale: string = "en-GB",
+  locale: string = 'en-GB',
 ) => {
   if (!Number.isFinite(min) || !Number.isFinite(max)) {
-    throw new Error("formatNumberRange: Invalid range");
+    throw new Error('formatNumberRange: Invalid range')
   }
   if (min > max) {
-    throw new RangeError("formatNumberRange: min must be <= max");
+    throw new RangeError('formatNumberRange: min must be <= max')
   }
-  return new Intl.NumberFormat(locale, options).formatRange(min, max);
-};
+  return new Intl.NumberFormat(locale, options).formatRange(min, max)
+}

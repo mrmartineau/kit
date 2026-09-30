@@ -1,5 +1,5 @@
-import { DEFAULT_DECIMAL_PLACES } from "../constants.js";
-import { formatNumberBase } from "./formatNumberBase.js";
+import { DEFAULT_DECIMAL_PLACES } from '../constants.js'
+import { formatNumberBase } from './formatNumberBase.js'
 
 /**
  * Formats a number with decimal places.
@@ -14,8 +14,8 @@ export const formatNumberDecimal = (
   options?: Intl.NumberFormatOptions,
 ) => {
   return formatNumberBase(value, {
-    style: "decimal",
+    style: 'decimal',
     maximumFractionDigits: decimalCount,
     ...options,
-  });
-};
+  })
+}

@@ -4,5 +4,5 @@
  * @example normalizeWhitespace("  hello\n\tworld  ") // "hello world"
  */
 export function normalizeWhitespace(str: string): string {
-  return str.replace(/\s+/g, " ").trim();
+  return str.replace(/\s+/g, ' ').trim()
 }

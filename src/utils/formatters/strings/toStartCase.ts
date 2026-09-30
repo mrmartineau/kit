@@ -12,10 +12,10 @@
  * FYI hyphens will be kept so this will not convert kebab-case to Start Case
  */
 export function toStartCase(str: string): string {
-  if (!str) return "";
+  if (!str) return ''
 
   return str
-    .replace(/_/g, " ")
-    .replace(/([a-z])([A-Z])/g, (_str, $1, $2) => $1 + " " + $2)
-    .replace(/(\s|^)(\w)/g, (_str, $1, $2) => $1 + $2.toUpperCase());
+    .replace(/_/g, ' ')
+    .replace(/([a-z])([A-Z])/g, (_str, $1, $2) => `${$1} ${$2}`)
+    .replace(/(\s|^)(\w)/g, (_str, $1, $2) => $1 + $2.toUpperCase())
 }

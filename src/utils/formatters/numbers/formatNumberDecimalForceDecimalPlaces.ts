@@ -1,5 +1,5 @@
-import { DEFAULT_DECIMAL_PLACES } from "../constants.js";
-import { formatNumberDecimal } from "./formatNumberDecimal.js";
+import { DEFAULT_DECIMAL_PLACES } from '../constants.js'
+import { formatNumberDecimal } from './formatNumberDecimal.js'
 
 /**
  * Formats a number with decimal places.
@@ -19,5 +19,5 @@ export const formatNumberDecimalForceDecimalPlaces = (
     // decimal places if possible so I have ensured that the number of decimal
     // places will be kept no matter what here.
     minimumFractionDigits: decimalCount,
-  });
-};
+  })
+}

@@ -1,5 +1,5 @@
-import { DEFAULT_DECIMAL_PLACES } from "../constants.js";
-import { formatNumberBase } from "./formatNumberBase.js";
+import { DEFAULT_DECIMAL_PLACES } from '../constants.js'
+import { formatNumberBase } from './formatNumberBase.js'
 
 /**
  * Formats a number as currency in accounting style: negative values are wrapped
@@ -19,9 +19,9 @@ export const formatNumberAccounting = (
     minimumFractionDigits: decimalCount,
     maximumFractionDigits: decimalCount,
     ...options,
-    style: "currency",
+    style: 'currency',
     currency,
-    currencyDisplay: "narrowSymbol",
-    currencySign: "accounting",
-  });
-};
+    currencyDisplay: 'narrowSymbol',
+    currencySign: 'accounting',
+  })
+}

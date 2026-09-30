@@ -1,8 +1,8 @@
 export interface TruncateOptions {
   /** The ellipsis suffix appended when truncation occurs. Default `"…"`. */
-  ellipsis?: string;
+  ellipsis?: string
   /** If `true`, truncates on the last word boundary inside the limit. */
-  wordBoundary?: boolean;
+  wordBoundary?: boolean
 }
 
 /**
@@ -10,20 +10,16 @@ export interface TruncateOptions {
  * The returned string (including ellipsis) will not exceed `maxLength`.
  * @example truncate("Hello world", 8) // "Hello w…"
  */
-export function truncate(
-  str: string,
-  maxLength: number,
-  options: TruncateOptions = {},
-): string {
-  const { ellipsis = "…", wordBoundary = false } = options;
-  if (!str || str.length <= maxLength) return str;
-  if (maxLength <= ellipsis.length) return ellipsis.slice(0, maxLength);
+export function truncate(str: string, maxLength: number, options: TruncateOptions = {}): string {
+  const { ellipsis = '…', wordBoundary = false } = options
+  if (!str || str.length <= maxLength) return str
+  if (maxLength <= ellipsis.length) return ellipsis.slice(0, maxLength)
 
-  const sliceLength = maxLength - ellipsis.length;
-  let truncated = str.slice(0, sliceLength);
+  const sliceLength = maxLength - ellipsis.length
+  let truncated = str.slice(0, sliceLength)
   if (wordBoundary) {
-    const lastSpace = truncated.lastIndexOf(" ");
-    if (lastSpace > 0) truncated = truncated.slice(0, lastSpace);
+    const lastSpace = truncated.lastIndexOf(' ')
+    if (lastSpace > 0) truncated = truncated.slice(0, lastSpace)
   }
-  return truncated + ellipsis;
+  return truncated + ellipsis
 }

@@ -6,12 +6,12 @@
  * @example formatInitials("Mary Jane Watson", 3) // "MJW"
  */
 export function formatInitials(name: string, maxLength: number = 2): string {
-  if (!name) return "";
+  if (!name) return ''
   return name
     .trim()
     .split(/\s+/)
     .map((part) => part.charAt(0).toUpperCase())
     .filter(Boolean)
     .slice(0, maxLength)
-    .join("");
+    .join('')
 }

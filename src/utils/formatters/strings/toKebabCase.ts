@@ -1,4 +1,4 @@
-import { splitWords } from "./splitWords.js";
+import { splitWords } from './splitWords.js'
 
 /**
  * Converts a string to `kebab-case`.
@@ -7,5 +7,5 @@ import { splitWords } from "./splitWords.js";
 export function toKebabCase(str: string): string {
   return splitWords(str)
     .map((word) => word.toLowerCase())
-    .join("-");
+    .join('-')
 }

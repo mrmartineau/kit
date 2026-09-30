@@ -1,5 +1,5 @@
-import { DEFAULT_DECIMAL_PLACES } from "../constants.js";
-import { formatNumberBase } from "./formatNumberBase.js";
+import { DEFAULT_DECIMAL_PLACES } from '../constants.js'
+import { formatNumberBase } from './formatNumberBase.js'
 
 /**
  * Formats a number as currency.
@@ -18,8 +18,8 @@ export const formatNumberCurrency = (
   return formatNumberBase(value, {
     maximumFractionDigits: decimalCount,
     ...options,
-    style: "currency",
-    currencyDisplay: "narrowSymbol",
+    style: 'currency',
+    currencyDisplay: 'narrowSymbol',
     currency,
-  });
-};
+  })
+}

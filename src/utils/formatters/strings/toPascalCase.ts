@@ -1,4 +1,4 @@
-import { splitWords } from "./splitWords.js";
+import { splitWords } from './splitWords.js'
 
 /**
  * Converts a string to `PascalCase`.
@@ -7,8 +7,8 @@ import { splitWords } from "./splitWords.js";
 export function toPascalCase(str: string): string {
   return splitWords(str)
     .map((word) => {
-      const lower = word.toLowerCase();
-      return lower.charAt(0).toUpperCase() + lower.slice(1);
+      const lower = word.toLowerCase()
+      return lower.charAt(0).toUpperCase() + lower.slice(1)
     })
-    .join("");
+    .join('')
 }

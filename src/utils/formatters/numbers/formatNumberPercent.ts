@@ -1,5 +1,5 @@
-import { DEFAULT_DECIMAL_PLACES } from "../constants.js";
-import { formatNumberBase } from "./formatNumberBase.js";
+import { DEFAULT_DECIMAL_PLACES } from '../constants.js'
+import { formatNumberBase } from './formatNumberBase.js'
 
 /**
  * Formats a number as a percentage. The value is expected to already be in
@@ -14,8 +14,8 @@ export const formatNumberPercent = (
   options?: Intl.NumberFormatOptions,
 ) => {
   return formatNumberBase(value, {
-    style: "percent",
+    style: 'percent',
     maximumFractionDigits: decimalCount,
     ...options,
-  });
-};
+  })
+}

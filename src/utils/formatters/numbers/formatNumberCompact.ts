@@ -1,4 +1,4 @@
-import { formatNumberBase } from "./formatNumberBase.js";
+import { formatNumberBase } from './formatNumberBase.js'
 
 /**
  * Formats a number in compact notation (e.g. `1200` → `1.2K`).
@@ -8,12 +8,12 @@ import { formatNumberBase } from "./formatNumberBase.js";
  */
 export const formatNumberCompact = (
   value: number | string,
-  display: "short" | "long" = "short",
+  display: 'short' | 'long' = 'short',
   options?: Intl.NumberFormatOptions,
 ) => {
   return formatNumberBase(value, {
-    notation: "compact",
+    notation: 'compact',
     compactDisplay: display,
     ...options,
-  });
-};
+  })
+}

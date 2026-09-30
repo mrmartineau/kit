@@ -1,4 +1,4 @@
-import { stripDiacritics } from "./stripDiacritics.js";
+import { stripDiacritics } from './stripDiacritics.js'
 
 /**
  * Converts a string to a URL-friendly slug.
@@ -7,6 +7,6 @@ import { stripDiacritics } from "./stripDiacritics.js";
 export function slugify(str: string): string {
   return stripDiacritics(str)
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
 }
