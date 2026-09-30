@@ -17,6 +17,8 @@
   },
   "peerDependencies": {
     "eslint": "*",
+    "prettier": "^3.0.0",
+    "prettier-plugin-astro": "^0.14.0",
     "typescript": "^6.0.3"
   },
   "exports": {
@@ -28,6 +30,7 @@
     "./oxfmt": "./src/oxfmt/.oxfmtrc.json",
     "./oxlint": "./src/oxlint/.oxlintrc.json",
     "./prettier": "./src/prettier/.prettierrc.json",
+    "./prettier/astro": "./src/prettier/astro.js",
     "./sounds": "./src/sounds/index.ts",
     "./sounds/*": "./src/sounds/*",
     "./utils": "./src/utils/index.ts"
@@ -37,6 +40,12 @@
   ],
   "peerDependenciesMeta": {
     "eslint": {
+      "optional": true
+    },
+    "prettier": {
+      "optional": true
+    },
+    "prettier-plugin-astro": {
       "optional": true
     }
   },
