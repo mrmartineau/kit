@@ -1,9 +1,23 @@
 {
   "name": "@mrmartineau/kit",
   "version": "1.0.0",
-  "type": "module",
-  "publishConfig": {
-    "access": "public"
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.7",
+    "@semantic-release/changelog": "^7.0.0",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^11.0.1",
+    "@semantic-release/github": "^12.0.9",
+    "@semantic-release/npm": "^13.1.5",
+    "@semantic-release/release-notes-generator": "^14.1.1",
+    "@types/bun": "1.3.14",
+    "@types/eslint": "^9.6.1",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "semantic-release": "^25.0.9"
+  },
+  "peerDependencies": {
+    "eslint": "*",
+    "typescript": "^6.0.3"
   },
   "exports": {
     ".": "./src/index.ts",
@@ -21,29 +35,22 @@
   "files": [
     "src"
   ],
-  "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^13.0.1",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^12.0.8",
-    "@semantic-release/npm": "^13.1.5",
-    "@semantic-release/release-notes-generator": "^14.1.1",
-    "@types/bun": "1.3.14",
-    "@types/eslint": "^9.6.1",
-    "semantic-release": "^25.0.3"
-  },
-  "peerDependencies": {
-    "eslint": "",
-    "typescript": "^6.0.3"
-  },
   "peerDependenciesMeta": {
     "eslint": {
       "optional": true
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "bun test",
     "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "ci:lint": "biome ci .",
     "release": "semantic-release"
-  }
+  },
+  "type": "module"
 }

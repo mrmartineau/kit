@@ -1,0 +1,19 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.7/schema.json",
+  "extends": ["./src/biome/biome.json"],
+  "files": {
+    "includes": ["**", "!**/CHANGELOG.md", "!**/bun.lock"]
+  },
+  "overrides": [
+    {
+      "includes": ["release.config.mjs"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noTemplateCurlyInString": "off"
+          }
+        }
+      }
+    }
+  ]
+}
