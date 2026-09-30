@@ -1,2 +1,3 @@
 // Utility functions — add exports here
-export * from './formatters/index.js';
+export * from './checks/index.js'
+export * from './formatters/index.js'
