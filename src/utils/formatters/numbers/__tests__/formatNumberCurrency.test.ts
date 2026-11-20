@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'bun:test'
-
 import { formatNumberCurrency } from '../formatNumberCurrency.js'
 
 describe('formatNumberCurrency', () => {

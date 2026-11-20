@@ -1,6 +1,36 @@
 {
   "name": "@mrmartineau/kit",
   "version": "1.0.0",
+  "files": [
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./biome": "./src/biome/biome.json",
+    "./components": "./src/components/index.ts",
+    "./eslint": "./src/eslint/index.ts",
+    "./hooks": "./src/hooks/index.ts",
+    "./oxfmt": "./src/oxfmt/.oxfmtrc.json",
+    "./oxlint": "./src/oxlint/.oxlintrc.json",
+    "./prettier": "./src/prettier/.prettierrc.json",
+    "./prettier/astro": "./src/prettier/astro.js",
+    "./sounds": "./src/sounds/index.ts",
+    "./sounds/*": "./src/sounds/*",
+    "./utils": "./src/utils/index.ts"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "ci:lint": "biome ci .",
+    "release": "semantic-release"
+  },
   "devDependencies": {
     "@biomejs/biome": "^2.5.7",
     "@semantic-release/changelog": "^7.0.0",
@@ -21,23 +51,6 @@
     "prettier-plugin-astro": "^0.14.0",
     "typescript": "^6.0.3"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./biome": "./src/biome/biome.json",
-    "./components": "./src/components/index.ts",
-    "./eslint": "./src/eslint/index.ts",
-    "./hooks": "./src/hooks/index.ts",
-    "./oxfmt": "./src/oxfmt/.oxfmtrc.json",
-    "./oxlint": "./src/oxlint/.oxlintrc.json",
-    "./prettier": "./src/prettier/.prettierrc.json",
-    "./prettier/astro": "./src/prettier/astro.js",
-    "./sounds": "./src/sounds/index.ts",
-    "./sounds/*": "./src/sounds/*",
-    "./utils": "./src/utils/index.ts"
-  },
-  "files": [
-    "src"
-  ],
   "peerDependenciesMeta": {
     "eslint": {
       "optional": true
@@ -48,18 +61,5 @@
     "prettier-plugin-astro": {
       "optional": true
     }
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "test": "bun test",
-    "typecheck": "tsc --noEmit",
-    "lint": "biome check .",
-    "lint:fix": "biome check --write .",
-    "format": "biome format --write .",
-    "ci:lint": "biome ci .",
-    "release": "semantic-release"
-  },
-  "type": "module"
+  }
 }
