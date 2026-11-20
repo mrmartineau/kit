@@ -1,6 +1,10 @@
 {
   "name": "@mrmartineau/kit",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrmartineau/kit.git"
+  },
   "files": [
     "src"
   ],
