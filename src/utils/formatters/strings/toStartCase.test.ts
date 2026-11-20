@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'bun:test'
-
 import { toStartCase } from './toStartCase'
 
 describe('toStartCase', () => {

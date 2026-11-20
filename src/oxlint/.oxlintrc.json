@@ -15,6 +15,13 @@
     "no-console": "warn",
     "no-debugger": "error",
     "typescript/consistent-type-imports": "error",
-    "typescript/no-explicit-any": "warn"
+    "typescript/no-explicit-any": "warn",
+    "no-unused-vars": [
+      "error",
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
+    "react/react-in-jsx-scope": "off"
   }
 }
