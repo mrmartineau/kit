@@ -2,6 +2,11 @@ name: NPM Release
 
 on:
   workflow_dispatch:
+    inputs:
+      skip-safe-chain:
+        description: Skip the Aikido safe-chain malware check on install
+        type: boolean
+        default: false
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -25,7 +30,11 @@ jobs:
       # Node provides the `npm` binary that @semantic-release/npm shells out to.
       - uses: actions/setup-node@v6
         with:
-          node-version: 'latest'
+          # semantic-release needs an LTS Node (^22.14 or >=24.10); `latest` can be a pre-release.
+          node-version: 'lts/*'
+      - name: Install safe-chain
+        if: ${{ !inputs.skip-safe-chain }}
+        run: curl -fsSL https://github.com/AikidoSec/safe-chain/releases/latest/download/install-safe-chain.sh | sh -s -- --ci
       - run: bun install --frozen-lockfile
       - run: bunx semantic-release
         env:
