@@ -11,11 +11,13 @@ bun add @mrmartineau/kit
 This package provides **configuration files and static assets only**, with no runtime dependencies — it does not install the underlying tools. Install whichever tools you actually need in your project:
 
 ```bash
-# Biome (linter + formatter)
-bun add -d @biomejs/biome
-
-# oxc (linter + formatter)
+# oxc (linter + formatter) — the default for new projects
 bun add -d oxlint oxfmt
+# …plus, in an Astro project, so oxfmt can format .astro files
+bun add -d @astrojs/compiler-rs
+
+# Biome (linter + formatter) — older projects
+bun add -d @biomejs/biome
 
 # ESLint + Prettier
 bun add -d eslint @eslint/js prettier
@@ -76,7 +78,8 @@ const clickSounds = getSoundsByCategory('click')
 
 ### Biome
 
-Shared [Biome](https://biomejs.dev) config for linting and formatting. Biome natively supports extending from packages via its `extends` field.
+Shared [Biome](https://biomejs.dev) config for linting and formatting. New projects
+use oxlint and oxfmt instead; this config stays for projects that still use Biome. Biome natively supports extending from packages via its `extends` field.
 
 In your project's `biome.json`:
 
@@ -93,6 +96,14 @@ The config is marked `"root": false` so Biome doesn't mistake it for a second ro
 configuration when it sits inside a project. `root` is not inherited through
 `extends`, so your own `biome.json` stays the root.
 
+It also turns off the unused-import, unused-variable, `useConst` and
+`useImportType` rules in `.astro`, `.svelte` and `.vue` files. Biome cannot see
+what the template uses, so it reports false errors, and `biome check --write`
+deletes imports the template needs.
+
+> Biome **replaces** the `overrides` list you extend; it does not add to it. If
+> your `biome.json` has its own `overrides`, copy the kit ones you still need.
+
 > Object-key sorting (`assist.actions.source.useSortedKeys`) is deliberately
 > **not** enabled — it rewrites object literals in your source on save, which is
 > surprising and occasionally meaningful. Turn it on per-project if you want it.
@@ -108,7 +119,7 @@ Shared [oxlint](https://oxc.rs/docs/guide/usage/linter/config) config. Reference
 }
 ```
 
-**Included settings:** correctness (error), suspicious + perf (warn), browser + node + es2024 envs, typescript/unicorn/import/react/jsx-a11y plugins, no-console warn, no-debugger error, `typescript/consistent-type-imports` error.
+**Included settings:** correctness (error), suspicious + perf (warn), browser + node + es2024 envs, typescript/unicorn/import/react/jsx-a11y plugins, no-console warn, no-debugger error, `typescript/consistent-type-imports` error, `no-unused-vars` that allows `const { a, ...rest } = x`, `react/react-in-jsx-scope` off (React 17+ needs no `React` import).
 
 `consistent-type-imports` pairs with the `verbatimModuleSyntax` TypeScript
 setting this kit also uses: without it, a type-only import that's missing the
@@ -116,13 +127,59 @@ setting this kit also uses: without it, a type-only import that's missing the
 
 ### oxfmt
 
-Shared [oxfmt](https://oxc.rs/docs/guide/usage/formatter) config. Reference it when running oxfmt:
+Shared [oxfmt](https://oxc.rs/docs/guide/usage/formatter) config. oxfmt has no
+`extends`, but it reads an `oxfmt.config.ts`, so import the kit settings and add
+your own:
 
-```sh
-oxfmt -c ./node_modules/@mrmartineau/kit/src/oxfmt/.oxfmtrc.json
+```ts
+// oxfmt.config.ts
+import kit from '@mrmartineau/kit/oxfmt' with { type: 'json' }
+
+export default { ...kit, ignorePatterns: ['src/routeTree.gen.ts'] }
 ```
 
-Or copy the settings into your own `.oxfmtrc.json`. The settings are kept consistent with the Biome config: single quotes, no semicolons, 2-space indentation, 100 print width.
+The settings match the Biome config: single quotes, no semicolons, 2-space
+indentation, 100 print width, import sorting with no blank lines between groups.
+`astro: true` formats `.astro` files, templates included, when the project has
+`@astrojs/compiler-rs` installed. Projects without Astro files do not need it.
+
+### Strict configs
+
+`src/biome/strict.json` and `src/oxlint/strict.json` extend the base configs
+and turn the [coding standards](https://github.com/mrmartineau/agent-skills/tree/main/skills/coding-standards)
+into errors. An agent cannot hand-wave a lint error, so it has one way left to
+write the code: the standard one. Use them in new projects. In an older project,
+turn on rules one at a time.
+
+```json
+{ "extends": ["./node_modules/@mrmartineau/kit/src/biome/strict.json"] }
+```
+
+```json
+{ "extends": ["./node_modules/@mrmartineau/kit/src/oxlint/strict.json"] }
+```
+
+| Standard                                                                 | Biome                                                                  | oxlint                                                                        |
+| :----------------------------------------------------------------------- | :--------------------------------------------------------------------- | :---------------------------------------------------------------------------- |
+| kebab-case file names                                                    | `useFilenamingConvention`                                              | `unicorn/filename-case`                                                       |
+| No barrel files                                                          | `noBarrelFile`, `noReExportAll`                                        | `oxc/no-barrel-file`                                                          |
+| Named exports (config files excepted)                                    | `noDefaultExport`                                                      | `import/no-default-export`                                                    |
+| No `import * as`                                                         | `noNamespaceImport`                                                    | `import/no-namespace`                                                         |
+| ES modules only                                                          | `noCommonJs`                                                           | `typescript/no-require-imports`                                               |
+| `interface` for object shapes                                            | `useConsistentTypeDefinitions`                                         | `typescript/consistent-type-definitions`                                      |
+| Unions, not enums                                                        | `noEnum`                                                               | — (use `erasableSyntaxOnly` in `tsconfig.json`)                               |
+| No `any`, no `!`, no `@ts-ignore`                                        | `noExplicitAny`, `noNonNullAssertion`, `noTsIgnore`                    | `typescript/no-explicit-any`, `no-non-null-assertion`, `ban-ts-comment`       |
+| `import type` for types                                                  | `useImportType`                                                        | `typescript/consistent-type-imports` (base)                                   |
+| At most 3 parameters                                                     | `useMaxParams`                                                         | `max-params`                                                                  |
+| No nested ternaries, no `==`                                             | `noNestedTernary`, `noDoubleEquals`                                    | `no-nested-ternary`, `eqeqeq`                                                 |
+| Only `console.warn` and `console.error`                                  | `noConsole`                                                            | `no-console`                                                                  |
+| No silent empty `catch` (a comment is fine)                              | `noEmptyBlockStatements`                                               | `no-empty`                                                                    |
+| `sort()` needs a compare function, or use `toSorted()`                   | `useArraySortCompare`                                                  | `unicorn/no-array-sort`, `no-array-reverse`                                   |
+| React: no `key={index}`, no components in components, hooks at top level | `noArrayIndexKey`, `noNestedComponentDefinitions`, `useHookAtTopLevel` | `react/no-array-index-key`, `no-unstable-nested-components`, `rules-of-hooks` |
+| `dangerouslySetInnerHTML` only for sanitised HTML                        | `noDangerouslySetInnerHtml` (base)                                     | `react/no-danger`                                                             |
+
+When an agent breaks a standard that has no rule here, add one. GritQL
+plugins (Biome) and JS plugins (oxlint) cover what the built-in rules cannot.
 
 ### ESLint
 
@@ -228,8 +285,8 @@ export default {
 }
 ```
 
-> Biome and oxfmt do not format `.astro` files — Prettier is the only option in
-> this kit for an Astro project's templates.
+> oxfmt also formats `.astro` files (see [oxfmt](#oxfmt)). Biome does not format
+> Astro templates.
 
 ### Utils, Components, Hooks
 
@@ -358,8 +415,10 @@ More detail and the reasoning behind each one: [Type check helpers](https://zand
 | --------------------------------- | -------------------------------- |
 | `@mrmartineau/kit`                | `src/index.ts`                   |
 | `@mrmartineau/kit/biome`          | `src/biome/biome.json`           |
+| `@mrmartineau/kit/biome/strict`   | `src/biome/strict.json`          |
 | `@mrmartineau/kit/eslint`         | `src/eslint/index.ts`            |
 | `@mrmartineau/kit/oxlint`         | `src/oxlint/.oxlintrc.json`      |
+| `@mrmartineau/kit/oxlint/strict`  | `src/oxlint/strict.json`         |
 | `@mrmartineau/kit/oxfmt`          | `src/oxfmt/.oxfmtrc.json`        |
 | `@mrmartineau/kit/prettier`       | `src/prettier/.prettierrc.json`  |
 | `@mrmartineau/kit/prettier/astro` | `src/prettier/astro.js`          |
@@ -371,18 +430,19 @@ More detail and the reasoning behind each one: [Type check helpers](https://zand
 
 ## Development
 
-This repo dogfoods its own Biome config — the root `biome.json` extends
-`src/biome/biome.json`, so a change to the shared config shows up here first.
+This repo dogfoods its own oxlint and oxfmt configs — the root `.oxlintrc.json`
+and `oxfmt.config.ts` use the shared configs in `src/`, so a change to them shows
+up here first.
 
 ```bash
 bun run lint       # check
 bun run lint:fix   # check and apply fixes
-bun run format     # format only
+bun run format     # format with oxfmt
 bun test
 bun run typecheck
 ```
 
-CI runs `biome ci .` alongside typecheck and tests on every pull request.
+CI runs `oxlint --deny-warnings` and `oxfmt --check` alongside typecheck and tests on every pull request.
 
 ## Attribution
 

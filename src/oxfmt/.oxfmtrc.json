@@ -1,8 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxfmt/configuration_schema.json",
+  "astro": true,
   "printWidth": 100,
   "semi": false,
   "singleQuote": true,
+  "sortImports": {
+    "newlinesBetween": false
+  },
   "tabWidth": 2,
   "trailingComma": "all",
   "useTabs": false

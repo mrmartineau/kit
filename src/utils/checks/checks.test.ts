@@ -20,6 +20,7 @@ import {
   isValidDate,
 } from './index'
 
+// oxlint-disable-next-line typescript/no-extraneous-class -- a class instance is what this tests
 class Foo {}
 
 describe('primitives', () => {
@@ -130,9 +131,9 @@ describe('collections and built-ins', () => {
 
   it('isPromiseLike matches promises and thenables', () => {
     expect(isPromiseLike(Promise.resolve())).toBe(true)
-    // biome-ignore lint/suspicious/noThenProperty: a thenable is what this tests
+    // oxlint-disable-next-line unicorn/no-thenable -- a thenable is what this tests
     expect(isPromiseLike({ then: () => {} })).toBe(true)
-    // biome-ignore lint/suspicious/noThenProperty: a thenable is what this tests
+    // oxlint-disable-next-line unicorn/no-thenable -- a thenable is what this tests
     expect(isPromiseLike({ then: 1 })).toBe(false)
     expect(isPromiseLike(null)).toBe(false)
   })

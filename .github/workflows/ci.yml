@@ -15,6 +15,10 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
+      # oxfmt runs on Node and loads oxfmt.config.ts natively (Node >= 22.18).
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
       - run: bun install --frozen-lockfile
       - name: Lint & format
         run: bun run ci:lint

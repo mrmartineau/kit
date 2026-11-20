@@ -36,5 +36,32 @@
     "clientKind": "git",
     "enabled": true,
     "useIgnoreFile": true
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.astro", "**/*.svelte", "**/*.vue"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          },
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/release.config.*"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noTemplateCurlyInString": "off"
+          }
+        }
+      }
+    }
+  ]
 }
